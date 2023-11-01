@@ -11,7 +11,6 @@ import { colors } from './components';
 
 const theme: ThemeOptions = createTheme({
   palette: {
-    mode: 'dark',
     error: {
       main: colors.error,
     },
@@ -40,6 +39,7 @@ const theme: ThemeOptions = createTheme({
 });
 
 const BlockVotezAppContainer = styled.div`
+  background-color: ${colors.black};
   padding: 0;
   font-family: 'Varela Round';
   margin-right: 0px;
