@@ -41,4 +41,14 @@ export const VotingPageContainer = styled.div`
         padding-left: 20px;
         padding-right: 20px;
     }
+
+    .modal-container {
+        display: none;
+    }
+
+    .dialog-top-bar {
+        display: none;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
 `;

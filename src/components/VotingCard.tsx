@@ -45,6 +45,7 @@ type VotingCardProps = {
     avatar: any;
     modalContent: any;
     name: string;
+    onDialogOpen: () => void;
     onVotePress: () => void;
 };
 
@@ -52,6 +53,7 @@ export default function VotingCard({
     avatar,
     modalContent,
     name,
+    onDialogOpen,
     onVotePress,
 }: VotingCardProps) {
     return (
@@ -65,13 +67,13 @@ export default function VotingCard({
                 </p>
             </div>
             <div className="buttons-container">
-                <Button color="primary" variant="outlined">
+                <Button color="primary" onClick={onDialogOpen} variant="outlined">
                     Details 
                 </Button>
-                <Button className="vote-button" color="primary" variant="contained">
+                <Button className="vote-button" color="primary" onClick={onVotePress} variant="contained">
                     Vote 
                 </Button>
             </div>
         </StyledPaperCard> 
-    )
+    );
 }
