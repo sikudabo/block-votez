@@ -6,7 +6,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { useSetVote } from '../../hooks';
+import { useIsFormLoading, useSetVote } from '../../hooks';
 
 const DemographicsFormContainer = styled.div`
     .top-header {
@@ -45,6 +45,7 @@ export default function DemographicsForm() {
     const races = ["American Indiana or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Other Pacific Islander", "White"];
     const incomes = ["$0-$30,000", "$30,001-$50,000", "$50,001-$80,000", "$80,001-$100,000", "$100,001+"];
     const { votedFor } = useSetVote();
+    const { setIsLoading } = useIsFormLoading();
 
     function handleFirstNameChange(e: { target: { value: string }}) {
         const { value } = e.target;
@@ -110,6 +111,7 @@ export default function DemographicsForm() {
             return;
         }
         console.log('The voter voted for:', votedFor);
+        setIsLoading(true);
 
         return await axios({
             url: 'http://127.0.0.1:9000/cast-ballot',
@@ -130,8 +132,10 @@ export default function DemographicsForm() {
         }).then(response => {
             const { data } = response;
             console.log('The response data is:', data);
+            setIsLoading(false);
         }).catch(err => {
             console.log(err.message);
+            setIsLoading(false);
             alert('There was an error submitting your vote. Please try again!');
         });
     }

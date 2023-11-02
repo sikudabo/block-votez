@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import { ThemeOptions, ThemeProvider, createTheme } from '@mui/material/styles';
 import {
   BrowserRouter as Router,
@@ -8,6 +10,7 @@ import {
 } from 'react-router-dom';
 import { DemographicsForm, VotingPage } from './pages';
 import { colors } from './components';
+import { useIsFormLoading } from './hooks';
 
 const theme: ThemeOptions = createTheme({
   palette: {
@@ -46,9 +49,22 @@ const BlockVotezAppContainer = styled.div`
 `;
 
 function App() {
+  const { isLoading, setIsLoading } = useIsFormLoading();
+
+  function handleBackdropClose() {
+    setIsLoading(false);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <BlockVotezAppContainer>
+        <Backdrop
+          sx={{ color: colors.hotPink, zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isLoading}
+          onClick={handleBackdropClose}
+        >
+          <CircularProgress color="primary" />
+        </Backdrop>
         <Router>
           <Routes>
             <Route element={<VotingPage />} path="/" />
