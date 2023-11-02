@@ -93,10 +93,6 @@ export default function VotingPage() {
     }
  
     function onVotePress(name: string) {
-        if (hasVoted) {
-            alert('You have already voted. You cannot vote again!');
-            return;
-        }
         navigate('demographics-form');
         setVote(name);
     }

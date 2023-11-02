@@ -8,6 +8,7 @@ type VoteStateType = {
 
 type VoteActionsType = {
     clearVote: () => void;
+    setHasVoted: () => void;
     setVote: (votedFor: string) => void;
 };
 
@@ -17,7 +18,8 @@ export const useSetVote = create(
         hasVoted: false,
         votedFor: "",
         clearVote: () => set(() => ({ votedFor: "", hasVoted: false })),
-        setVote: (votedFor: string) => set(() => ({ votedFor, hasVoted: true })),
+        setHasVoted: () => set(() => ({ hasVoted: true })),
+        setVote: (votedFor: string) => set(() => ({ votedFor })),
       }),
       {
         name: 'vote-data-storage',

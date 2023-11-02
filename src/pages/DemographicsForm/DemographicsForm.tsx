@@ -81,8 +81,59 @@ export default function DemographicsForm() {
         setSelectedIncome(value);
     }
 
+    const checkValidEmail = (email: string) => {
+        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            return false;
+        }
+    
+        return true;
+    }
+
     async function sendVoterData() {
+        if (!firstName.trim()) {
+            alert('You must enter a first name!');
+            return;
+        }
+
+        if (!lastName.trim()) {
+            alert('You must enter a last name!');
+            return;
+        }
+
+        if (!checkValidEmail(email)) {
+            alert('You must enter a valid email!');
+            return; 
+        }
+
+        if (!age || age <= 18) {
+            alert('You must be at least 18 to vote! Please enter a valid age.');
+            return;
+        }
         console.log('The voter voted for:', votedFor);
+
+        return await axios({
+            url: 'http://127.0.0.1:9000/cast-ballot',
+            method: 'POST',
+            data: {
+                age,
+                email,
+                "first_name": firstName,
+                "gender": selectedGender,
+                "last_name": lastName,
+                "race": selectedRace,
+                "voted_for": votedFor,
+                "income": selectedIncome,
+            },
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            const { data } = response;
+            console.log('The response data is:', data);
+        }).catch(err => {
+            console.log(err.message);
+            alert('There was an error submitting your vote. Please try again!');
+        });
     }
 
     return (
