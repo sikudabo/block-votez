@@ -78,7 +78,6 @@ export default function PollResultsPage() {
     candidates.map((candidate) => {
         totalVotes += candidate.votes;
     });
-    console.log('The total votes are:', totalVotes);
 
     return (
         <PollResultsPageContainer>
