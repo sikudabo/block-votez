@@ -6,7 +6,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import { VotingPage } from './pages';
+import { DemographicsForm, VotingPage } from './pages';
 import { colors } from './components';
 
 const theme: ThemeOptions = createTheme({
@@ -39,7 +39,6 @@ const theme: ThemeOptions = createTheme({
 });
 
 const BlockVotezAppContainer = styled.div`
-  background-color: ${colors.black};
   padding: 0;
   font-family: 'Varela Round';
   margin-right: 0px;
@@ -53,6 +52,7 @@ function App() {
         <Router>
           <Routes>
             <Route element={<VotingPage />} path="/" />
+            <Route element={<DemographicsForm />} path="demographics-form" />
           </Routes>
         </Router>
       </BlockVotezAppContainer>

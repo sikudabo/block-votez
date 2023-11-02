@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 import { VotingPageContainer } from './styles/VotingPageContainer';
 import { VotingCard } from '../../components';
 import { useSetVote } from '../../hooks';
@@ -29,7 +30,8 @@ const candidates = [
 export default function VotingPage() {
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
     const [detailsCandidate, setDetailsCandidate] = useState("");
-    const { clearVote, setVote } = useSetVote();
+    const { hasVoted, setVote } = useSetVote();
+    const navigate = useNavigate();
 
     const morrellMarkup = (
         <div>
@@ -91,7 +93,12 @@ export default function VotingPage() {
     }
  
     function onVotePress(name: string) {
-        // setVote(name);
+        if (hasVoted) {
+            alert('You have already voted. You cannot vote again!');
+            return;
+        }
+        navigate('demographics-form');
+        setVote(name);
     }
 
     return (
