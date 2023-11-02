@@ -6,7 +6,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { useIsFormLoading, useSetVote } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
+import { useCandidates, useIsFormLoading, useSetVote } from '../../hooks';
 
 const DemographicsFormContainer = styled.div`
     .top-header {
@@ -44,8 +45,10 @@ export default function DemographicsForm() {
     const genders = ["Female", "Male"];
     const races = ["American Indiana or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Other Pacific Islander", "White"];
     const incomes = ["$0-$30,000", "$30,001-$50,000", "$50,001-$80,000", "$80,001-$100,000", "$100,001+"];
+    const { setCandidates } = useCandidates();
     const { votedFor } = useSetVote();
     const { setIsLoading } = useIsFormLoading();
+    const navigate = useNavigate();
 
     function handleFirstNameChange(e: { target: { value: string }}) {
         const { value } = e.target;
@@ -110,7 +113,6 @@ export default function DemographicsForm() {
             alert('You must be at least 18 to vote! Please enter a valid age.');
             return;
         }
-        console.log('The voter voted for:', votedFor);
         setIsLoading(true);
 
         return await axios({
@@ -131,10 +133,10 @@ export default function DemographicsForm() {
             },
         }).then(response => {
             const { data } = response;
-            console.log('The response data is:', data);
+            setCandidates(data);
             setIsLoading(false);
+            navigate('/poll-results');
         }).catch(err => {
-            console.log(err.message);
             setIsLoading(false);
             alert('There was an error submitting your vote. Please try again!');
         });

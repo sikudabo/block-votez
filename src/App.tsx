@@ -8,7 +8,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import { DemographicsForm, VotingPage } from './pages';
+import { DemographicsForm, PollResultsPage, VotingPage } from './pages';
 import { colors } from './components';
 import { useIsFormLoading } from './hooks';
 
@@ -69,6 +69,7 @@ function App() {
           <Routes>
             <Route element={<VotingPage />} path="/" />
             <Route element={<DemographicsForm />} path="demographics-form" />
+            <Route element={<PollResultsPage />} path="poll-results" />
           </Routes>
         </Router>
       </BlockVotezAppContainer>
