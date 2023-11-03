@@ -50,11 +50,6 @@ export default function DemographicsForm() {
     const { setIsLoading } = useIsFormLoading();
     const navigate = useNavigate();
 
-    if (hasVoted) {
-        alert('You have already voted on this device!');
-        return;
-    }
-
     function handleFirstNameChange(e: { target: { value: string }}) {
         const { value } = e.target;
         setFirstName(value);
@@ -99,6 +94,11 @@ export default function DemographicsForm() {
     }
 
     async function sendVoterData() {
+        if (hasVoted) {
+            alert('You have already voted on this device!');
+            return;
+        }
+        
         if (!firstName.trim()) {
             alert('You must enter a first name!');
             return;
