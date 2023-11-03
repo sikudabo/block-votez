@@ -46,9 +46,14 @@ export default function DemographicsForm() {
     const races = ["American Indiana or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Other Pacific Islander", "White"];
     const incomes = ["$0-$30,000", "$30,001-$50,000", "$50,001-$80,000", "$80,001-$100,000", "$100,001+"];
     const { setCandidates } = useCandidates();
-    const { votedFor } = useSetVote();
+    const { hasVoted, setHasVoted, votedFor } = useSetVote();
     const { setIsLoading } = useIsFormLoading();
     const navigate = useNavigate();
+
+    if (hasVoted) {
+        alert('You have already voted on this device!');
+        return;
+    }
 
     function handleFirstNameChange(e: { target: { value: string }}) {
         const { value } = e.target;
@@ -135,6 +140,7 @@ export default function DemographicsForm() {
             const { data } = response;
             setCandidates(data);
             setIsLoading(false);
+            setHasVoted();
             navigate('/poll-results');
         }).catch(err => {
             setIsLoading(false);
