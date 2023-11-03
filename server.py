@@ -23,6 +23,11 @@ def index():
     return app.send_static_file('index.html')
 
 
+@app.errorhandler(404)
+def not_found():
+    return app.send_static_file('index.html')
+
+
 @app.post('/cast-ballot')
 async def cast_ballot():
     data = request.get_json()
