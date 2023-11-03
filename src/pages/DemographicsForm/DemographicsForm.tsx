@@ -94,10 +94,10 @@ export default function DemographicsForm() {
     }
 
     async function sendVoterData() {
-        if (hasVoted) {
+        /* if (hasVoted) {
             alert('You have already voted on this device!');
             return;
-        }
+        } */
 
         if (!firstName.trim()) {
             alert('You must enter a first name!');
@@ -121,7 +121,7 @@ export default function DemographicsForm() {
         setIsLoading(true);
 
         return await axios({
-            url: 'https://www.blockvotez.com/cast-ballot',
+            url: 'http://127.0.0.1:9000/cast-ballot',
             method: 'POST',
             data: {
                 age,
