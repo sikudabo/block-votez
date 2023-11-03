@@ -98,7 +98,7 @@ export default function DemographicsForm() {
             alert('You have already voted on this device!');
             return;
         }
-        
+
         if (!firstName.trim()) {
             alert('You must enter a first name!');
             return;
@@ -121,7 +121,7 @@ export default function DemographicsForm() {
         setIsLoading(true);
 
         return await axios({
-            url: 'http://127.0.0.1:9000/cast-ballot',
+            url: 'https://www.blockvotez.com/cast-ballot',
             method: 'POST',
             data: {
                 age,
