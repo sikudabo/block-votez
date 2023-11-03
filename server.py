@@ -1,9 +1,15 @@
 from flask import Flask, request
 from flask_cors import CORS
 from pymongo import MongoClient
+from dotenv import load_dotenv
 import bson.json_util as json_util
+import os
 
-client = MongoClient("localhost", 27017)
+load_dotenv()
+
+db_name = os.getenv("DB_NAME")
+db_pass = os.getenv("DB_PASS")
+client = MongoClient(f"mongodb+srv://{db_name}:{db_pass}@cluster0.bf8ua2i.mongodb.net/?retryWrites=true&w=majority")
 db = client.blockvotez
 voters = db.voters
 candidates = db.candidates
